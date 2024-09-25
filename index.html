@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+  <title>中文寫字練習</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script
+    src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+    crossorigin="anonymous"></script>
+  <script
+    src="https://unpkg.com/to-jyutping@1.0.0/dist/index.js"
+    defer></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap" rel="stylesheet">
+
+  <style>
+    .noto-serif tc-regular {
+      font-family: "Noto Serif TC", serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+  </style>
+
+</head>
+<body class="p-8">
+
+  <div id="app" class="container mx-auto max-w-4xl">
+
+    <div id="output" class="">
+
+    </div>
+
+  </div>
+
+  <script>
+    var sentences = [
+        //"我的名字叫歐陽凱風。",
+        //"我有一個妹妹，她叫牧雪。",
+        //"我們住在都柏林。",
+        //"我現在是小學二年級的學生。",
+        //"爸爸開車送我上學。",
+        //"媽媽給我做雪糕。",
+        //"太陽系有八大行星。",
+        //"火星是紅色的。",
+        //"我喜歡吃水果。",
+        //"媽媽帶我和妹妹去公園。",
+        //"我今天在路上看見一隻貓。",
+        //"巴黎是法國的首都。",
+        //"新加坡和日本都是亞洲的國家。"
+        //"我和爸爸、媽媽、妹妹去公園散步。",
+        //"今天天氣很熱，我們一起去游泳。",
+        //"牧雪在花園看見蜜蜂。",
+        //"今年夏天我們打算去倫敦。",
+        //"我在內蒙古有兩個哥哥。",
+        //"我們開車去英國旅行。",
+        //"我和爸爸去瑞士滑雪。",
+        //"我正在學習彈鋼琴和小提琴。",
+        //"我的妹妹喜歡跳舞。",
+        //"今天我們去農場看動物。",
+        //"朗朗是我的弟弟，他在香港。",
+        //"我正在學習小提琴。",
+        //"我用電腦寫信給我的朋友。",
+        //"我喜歡作曲。",
+        //"星期六我參加了足球比賽。",
+        //"星期日我們一家去爬山。",
+        //"香蕉是黃色的。",
+        //"我喜歡彈奏貝多芬的樂曲。"
+        "媽媽和我一起做蛋糕。",
+        "我每天都會練習彈琴。",
+        "我和爸爸一起玩遊戲。",
+        "我給我的小提琴老師作了一首歌。"
+    ];
+
+    $(document).ready(function() {
+        $("#output").empty();
+
+        $(sentences).each(function (index, sentence) {
+            var sentence = ToJyutping.getJyutpingList(sentence);
+
+            var len = sentence.length
+            for (var i = 0; i < (3 * len); i++) {
+                sentence.push(["", ""]);
+            }
+            console.log(sentence);
+
+            var row = $('<div class="flex flex-wrap mb-6">');
+            $(sentence).each(function (index, character) {
+                div = '<div class="w-24 text-center border p-6">';
+                div += '<span class="text-xl">'
+                if (character[1]) {
+                    div += character[1].substr(0, character[1].length - 1)
+                    div += '<span class="text-sky-600">' + character[1].substr(-1) + '</span>';
+                    div += '<br/>';
+                } else {
+                  div += '<br/>';
+                }
+                div += '</span>';
+                div += '<span class="text-4xl font-[\'Noto_Serif_TC\']"">' + character[0] + '</span><br/>';
+                div += '</div>';
+                row.append(div);
+            });
+            $('#output').append($(row));
+        });
+    });
+
+  </script>
+
+</body>
+</html>
